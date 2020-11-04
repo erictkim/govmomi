@@ -58,6 +58,17 @@ func (s HostFirewallSystem) EnableRuleset(ctx context.Context, id string) error 
 	return err
 }
 
+func (s HostFirewallSystem) UpdateRuleset(ctx context.Context, id string, spec types.HostFirewallRulesetRulesetSpec) error {
+	req := types.UpdateRuleset{
+		This: s.Reference(),
+		Id:   id,
+		Spec: spec,
+	}
+
+	_, err := methods.UpdateRuleset(ctx, s.c, &req)
+	return err
+}
+
 func (s HostFirewallSystem) Refresh(ctx context.Context) error {
 	req := types.RefreshFirewall{
 		This: s.Reference(),
